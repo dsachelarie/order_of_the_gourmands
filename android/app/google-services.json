@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "8842716058",
+    "project_id": "order-of-the-gourmands",
+    "storage_bucket": "order-of-the-gourmands.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8842716058:android:fbffed7bda202daa039023",
+        "android_client_info": {
+          "package_name": "com.example.order_of_the_gourmand"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmQSyC-8Kwt5gkqAKxTcdr3esebMp6a2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
