@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import './screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,10 +8,6 @@ main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final snapshot = await _firestore.collection('recipes').get();
-  snapshot.docs.forEach((doc) => print('${doc.id}: ${doc.data()}'));
 
   runApp(createApp());
 }
