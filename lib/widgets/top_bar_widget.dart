@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
-class TopBarWidget extends StatelessWidget {
-  const TopBarWidget({super.key});
+class TopBarWidget extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+
+  const TopBarWidget({super.key})
+      : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(child: Scaffold(body: Text("Some top bar")));
+    return AppBar(title: const Text("Some top bar"));
   }
 }

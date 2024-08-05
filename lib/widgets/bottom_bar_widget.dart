@@ -5,6 +5,6 @@ class BottomBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(child: Scaffold(body: Text("Some bottom bar")));
+    return const Text("Some bottom bar");
   }
 }

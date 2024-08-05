@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './screens/categories_screen.dart';
 import './screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +20,7 @@ Widget createApp() {
       routes: {
         '/': (_) => const HomeScreen(),
         //'/recipe/': (_) => const RecipeScreen(),
-        //'/categories/': (_) => const RecipeCategoryScreen(),
+        '/categories/': (_) => const CategoriesScreen(),
         //'/list/': (_) => const RecipeListScreen(),
       },
     ),
