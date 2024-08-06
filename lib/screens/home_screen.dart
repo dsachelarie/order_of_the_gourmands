@@ -14,11 +14,11 @@ class HomeScreen extends StatelessWidget {
     Widget bodyWidget;
 
     if (MediaQuery.of(context).size.width <= Breakpoints.sm) {
-      bodyWidget = SmallHomeBodyWidget();
+      bodyWidget = const SmallHomeBodyWidget();
     } else if (MediaQuery.of(context).size.width <= Breakpoints.md) {
-      bodyWidget = MediumHomeBodyWidget();
+      bodyWidget = const MediumHomeBodyWidget();
     } else {
-      bodyWidget = LargeHomeBodyWidget();
+      bodyWidget = const LargeHomeBodyWidget();
     }
 
     return SafeArea(

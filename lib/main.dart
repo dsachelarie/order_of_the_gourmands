@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './screens/recipe_screen.dart';
+import './screens/recipe_list_screen.dart';
 import './screens/categories_screen.dart';
 import './screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,9 +21,9 @@ Widget createApp() {
       initialRoute: '/',
       routes: {
         '/': (_) => const HomeScreen(),
-        //'/recipe/': (_) => const RecipeScreen(),
+        '/recipe/': (_) => const RecipeScreen(),
         '/categories/': (_) => const CategoriesScreen(),
-        //'/list/': (_) => const RecipeListScreen(),
+        '/recipe-list/': (_) => const RecipeListScreen(),
       },
     ),
   );

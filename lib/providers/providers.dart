@@ -16,3 +16,8 @@ final categoriesProvider =
 final recipeCategoryProvider =
     StateNotifierProvider<CategoriesRecipesNotifier, List<CategoryRecipe>>(
         (_) => CategoriesRecipesNotifier());
+
+final activeCategoryProvider = StateProvider<Category>((_) => Category("", ""));
+
+final activeRecipeProvider =
+    StateProvider<Recipe>((_) => Recipe("", "", {}, []));

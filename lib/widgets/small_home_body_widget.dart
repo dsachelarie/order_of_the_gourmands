@@ -8,12 +8,18 @@ class SmallHomeBodyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView(children: [
-      const Card(child: RecipeWidget()),
-      const LimitedCategoriesWidget(),
-      ElevatedButton(
-          onPressed: () => Navigator.pushNamed(context, '/categories/'),
-          child: const Text("More categories"))
-    ]);
+    return ListView(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width / 4,
+            right: MediaQuery.of(context).size.width / 4,
+            top: MediaQuery.of(context).size.height / 10),
+        children: [
+          const Card(child: RecipeWidget()),
+          const LimitedCategoriesWidget(),
+          ElevatedButton.icon(
+              icon: const Icon(Icons.add),
+              label: const Text("More recipe categories"),
+              onPressed: () => Navigator.pushNamed(context, '/categories/'))
+        ]);
   }
 }
