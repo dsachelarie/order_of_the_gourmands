@@ -11,11 +11,11 @@ class RecipesNotifier extends StateNotifier<List<Recipe>> {
 
   void _fetchRecipes() async {
     final snapshot = await _firestore.collection('recipes').get();
-    final notes = snapshot.docs.map((doc) {
+    final recipes = snapshot.docs.map((doc) {
       return Recipe.fromFirestore(doc.data(), doc.id);
     }).toList();
 
-    state = notes;
+    state = recipes;
   }
 
   void addRecipe(

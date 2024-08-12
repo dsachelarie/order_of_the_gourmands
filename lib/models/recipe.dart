@@ -7,7 +7,11 @@ class Recipe {
   Recipe(this.id, this.name, this.ingredients, this.steps);
 
   factory Recipe.fromFirestore(Map<String, dynamic> data, String id) {
-    return Recipe(id, data['name'], data['ingredients'], data['steps']);
+    return Recipe(
+        id,
+        data['name'],
+        Map<String, String>.from(data['ingredients'] as Map<String, dynamic>),
+        List<String>.from(data['steps'] as List<dynamic>));
   }
 
   Map<String, dynamic> toFirestore() {

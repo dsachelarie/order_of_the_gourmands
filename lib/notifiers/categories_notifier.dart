@@ -11,11 +11,11 @@ class CategoriesNotifier extends StateNotifier<List<Category>> {
 
   void _fetchCategories() async {
     final snapshot = await _firestore.collection('categories').get();
-    final notes = snapshot.docs.map((doc) {
+    final categories = snapshot.docs.map((doc) {
       return Category.fromFirestore(doc.data(), doc.id);
     }).toList();
 
-    state = notes;
+    state = categories;
   }
 
   void addCategory(String name) async {
