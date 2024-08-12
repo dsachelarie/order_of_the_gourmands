@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
 
     return SafeArea(
         child: Scaffold(
-            appBar: const TopBarWidget(),
+            appBar: TopBarWidget(),
             body: bodyWidget,
             bottomNavigationBar: const BottomBarWidget()));
   }
