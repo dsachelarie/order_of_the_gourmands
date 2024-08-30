@@ -25,7 +25,7 @@ class CategoriesScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-        appBar: TopBarWidget(),
+        appBar: const TopBarWidget(),
         body: ListView(children: widgets),
         bottomNavigationBar: const BottomBarWidget());
   }

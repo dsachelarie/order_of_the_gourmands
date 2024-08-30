@@ -21,3 +21,7 @@ final activeCategoryProvider = StateProvider<Category>((_) => Category("", ""));
 
 final activeRecipeProvider =
     StateProvider<Recipe>((_) => Recipe("", "", {}, []));
+
+final recipeFilterProvider = StateProvider<List<String>>((_) => []);
+
+final searchActivationProvider = StateProvider<bool>((_) => false);

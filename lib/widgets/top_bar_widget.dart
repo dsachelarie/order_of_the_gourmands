@@ -1,35 +1,24 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import '../breakpoints.dart';
+import './large_widgets/large_top_bar_widget.dart';
+import './medium_widgets/medium_top_bar_widget.dart';
+import './small_widgets/small_top_bar_widget.dart';
 
 class TopBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
-  final TextEditingController controller;
-  final double buttonWidth;
 
-  TopBarWidget({super.key})
-      : preferredSize = const Size.fromHeight(kToolbarHeight),
-        controller = TextEditingController(),
-        buttonWidth = 150.0;
+  const TopBarWidget({super.key})
+      : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(actions: [
-      SizedBox(
-          width: min(500, MediaQuery.of(context).size.width - buttonWidth),
-          child: TextField(
-              controller: controller,
-              decoration: const InputDecoration(
-                  hintText: 'Search recipes', border: OutlineInputBorder()))),
-      SizedBox(
-          width: buttonWidth,
-          child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ElevatedButton.icon(
-                  icon: const Icon(Icons.search_outlined),
-                  label: const Text("Search"),
-                  onPressed: () =>
-                      Navigator.pushNamed(context, '/recipe-list/'))))
-    ]);
+    if (MediaQuery.of(context).size.width <= Breakpoints.md) {
+      return SmallTopBarWidget();
+    } else if (MediaQuery.of(context).size.width <= Breakpoints.lg) {
+      return MediumTopBarWidget();
+    } else {
+      return LargeTopBarWidget();
+    }
   }
 }
