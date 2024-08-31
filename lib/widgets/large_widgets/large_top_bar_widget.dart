@@ -32,9 +32,11 @@ class LargeTopBarWidget extends ConsumerWidget {
                                 minimumSize: const Size(40.0, 40.0)),
                             onPressed: () {
                               ref.watch(recipeFilterProvider.notifier).update(
-                                  (state) => state = controller.text
-                                      .toLowerCase()
-                                      .split(RegExp(r'[^a-z]')));
+                                  (state) => state = {
+                                        "name": controller.text
+                                            .toLowerCase()
+                                            .split(RegExp(r'[^a-z]'))
+                                      });
 
                               controller.clear();
 
@@ -42,7 +44,9 @@ class LargeTopBarWidget extends ConsumerWidget {
                             }))),
                 onSubmitted: (String query) {
                   ref.watch(recipeFilterProvider.notifier).update((state) =>
-                      state = query.toLowerCase().split(RegExp(r'[^a-z]')));
+                      state = {
+                        "name": query.toLowerCase().split(RegExp(r'[^a-z]'))
+                      });
 
                   controller.clear();
 

@@ -30,9 +30,11 @@ class SmallTopBarWidget extends ConsumerWidget {
                             minimumSize: const Size(50.0, 50.0)),
                         onPressed: () {
                           ref.watch(recipeFilterProvider.notifier).update(
-                              (state) => state = controller.text
-                                  .toLowerCase()
-                                  .split(RegExp(r'[^a-z]')));
+                              (state) => state = {
+                                    "name": controller.text
+                                        .toLowerCase()
+                                        .split(RegExp(r'[^a-z]'))
+                                  });
 
                           ref
                               .watch(searchActivationProvider.notifier)
@@ -43,8 +45,8 @@ class SmallTopBarWidget extends ConsumerWidget {
                           Navigator.pushNamed(context, '/recipe-list/');
                         }))),
             onSubmitted: (String query) {
-              ref.watch(recipeFilterProvider.notifier).update((state) =>
-                  state = query.toLowerCase().split(RegExp(r'[^a-z]')));
+              ref.watch(recipeFilterProvider.notifier).update((state) => state =
+                  {"name": query.toLowerCase().split(RegExp(r'[^a-z]'))});
 
               ref
                   .watch(searchActivationProvider.notifier)
