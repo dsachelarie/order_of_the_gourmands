@@ -23,12 +23,13 @@ class RecipeListScreen extends ConsumerWidget {
             return true;
           }
         }
+
         return false;
       }).toList();
-    } else if (filters.containsKey("category")) {
+    } else if (filters.containsKey("category_id")) {
       categoriesRecipes = categoriesRecipes
           .where((categoryRecipe) =>
-              categoryRecipe.categoryId == filters["category"].id)
+              categoryRecipe.categoryId == filters["category_id"])
           .toList();
 
       recipes = recipes.where((recipe) {
@@ -55,8 +56,6 @@ class RecipeListScreen extends ConsumerWidget {
                 Navigator.pushNamed(context, '/recipe/');
               },
               child: Text(recipe.name))));
-
-      break;
     }
 
     Widget body;
