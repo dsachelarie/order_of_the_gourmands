@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/providers.dart';
@@ -58,8 +59,8 @@ class LargeTopBarWidget extends ConsumerWidget {
               child: ElevatedButton.icon(
                   icon: const Icon(Icons.login_outlined),
                   label: const Text("Login"),
-                  onPressed: () {
-                    print("login");
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signInAnonymously();
                   }))
         ]);
   }

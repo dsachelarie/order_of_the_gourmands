@@ -70,9 +70,10 @@ class RecipeListScreen extends ConsumerWidget {
           crossAxisCount: 4, childAspectRatio: 4, children: widgets);
     }
 
-    return Scaffold(
-        appBar: const TopBarWidget(),
-        body: body,
-        bottomNavigationBar: const BottomBarWidget());
+    return SafeArea(
+        child: Scaffold(
+            appBar: const TopBarWidget(),
+            body: body,
+            bottomNavigationBar: const BottomBarWidget()));
   }
 }

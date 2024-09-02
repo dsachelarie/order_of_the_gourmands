@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/providers.dart';
@@ -70,14 +71,23 @@ class SmallTopBarWidget extends ConsumerWidget {
               })));
     }
 
-    actions.add(Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-        child: ElevatedButton.icon(
-            icon: const Icon(Icons.login_outlined),
-            label: const Text("Login"),
-            onPressed: () {
-              print("login");
-            })));
+    actions.add(ref.watch(userProvider).value == null
+        ? Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: ElevatedButton.icon(
+                icon: const Icon(Icons.login_outlined),
+                label: const Text("Login"),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signInAnonymously();
+                }))
+        : Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: ElevatedButton.icon(
+                icon: const Icon(Icons.logout_outlined),
+                label: const Text("Logout"),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                })));
 
     return AppBar(actions: actions);
   }
