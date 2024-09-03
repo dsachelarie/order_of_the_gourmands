@@ -31,13 +31,14 @@ class HomeService {
     return selectedCategories;
   }
 
-  static String getTruncatedRecipeSteps(List<String> steps) {
+  static String getTruncatedRecipeSteps(
+      List<String> steps, int truncationThreshold) {
     String concatenatedSteps = steps.reduce((a, b) => "$a\n\n$b");
 
-    if (concatenatedSteps.length < 300) {
+    if (concatenatedSteps.length < truncationThreshold) {
       return concatenatedSteps;
     }
 
-    return "${concatenatedSteps.substring(0, 300)}...";
+    return "${concatenatedSteps.substring(0, truncationThreshold)}...";
   }
 }

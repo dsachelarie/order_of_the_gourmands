@@ -59,26 +59,33 @@ class MediumTopBarWidget extends ConsumerWidget {
             },
           )));
     } else {
-      actions.add(Padding(
-          padding: EdgeInsets.zero,
-          child: ElevatedButton.icon(
-              icon: const Icon(Icons.search_outlined),
-              label: const Text("Search recipes"),
-              onPressed: () {
-                ref
-                    .watch(searchActivationProvider.notifier)
-                    .update((state) => state = true);
-              })));
+      actions.add(ElevatedButton.icon(
+          icon: const Icon(Icons.search_outlined),
+          label: const Text("Search recipes"),
+          onPressed: () {
+            ref
+                .watch(searchActivationProvider.notifier)
+                .update((state) => state = true);
+          }));
     }
 
-    actions.add(Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-        child: ElevatedButton.icon(
-            icon: const Icon(Icons.login_outlined),
-            label: const Text("Login"),
-            onPressed: () async {
-              await FirebaseAuth.instance.signInAnonymously();
-            })));
+    actions.add(ref.watch(userProvider).value == null
+        ? Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: ElevatedButton.icon(
+                icon: const Icon(Icons.login_outlined),
+                label: const Text("Login"),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signInAnonymously();
+                }))
+        : Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: ElevatedButton.icon(
+                icon: const Icon(Icons.logout_outlined),
+                label: const Text("Logout"),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                })));
 
     return AppBar(
         title: Text("Order of the Gourmands",

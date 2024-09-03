@@ -59,16 +59,14 @@ class SmallTopBarWidget extends ConsumerWidget {
             },
           )));
     } else {
-      actions.add(Padding(
-          padding: EdgeInsets.zero,
-          child: ElevatedButton.icon(
-              icon: const Icon(Icons.search_outlined),
-              label: const Text("Search recipes"),
-              onPressed: () {
-                ref
-                    .watch(searchActivationProvider.notifier)
-                    .update((state) => state = true);
-              })));
+      actions.add(ElevatedButton.icon(
+          icon: const Icon(Icons.search_outlined),
+          label: const Text("Search recipes"),
+          onPressed: () {
+            ref
+                .watch(searchActivationProvider.notifier)
+                .update((state) => state = true);
+          }));
     }
 
     actions.add(ref.watch(userProvider).value == null

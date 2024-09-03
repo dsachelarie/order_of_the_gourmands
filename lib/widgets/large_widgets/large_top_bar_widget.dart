@@ -54,14 +54,23 @@ class LargeTopBarWidget extends ConsumerWidget {
                   Navigator.pushNamed(context, '/recipe-list/');
                 },
               )),
-          Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: ElevatedButton.icon(
-                  icon: const Icon(Icons.login_outlined),
-                  label: const Text("Login"),
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signInAnonymously();
-                  }))
+          ref.watch(userProvider).value == null
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: ElevatedButton.icon(
+                      icon: const Icon(Icons.login_outlined),
+                      label: const Text("Login"),
+                      onPressed: () async {
+                        await FirebaseAuth.instance.signInAnonymously();
+                      }))
+              : Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: ElevatedButton.icon(
+                      icon: const Icon(Icons.logout_outlined),
+                      label: const Text("Logout"),
+                      onPressed: () async {
+                        await FirebaseAuth.instance.signOut();
+                      }))
         ]);
   }
 }
