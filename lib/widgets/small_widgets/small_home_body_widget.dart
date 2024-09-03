@@ -18,7 +18,7 @@ class SmallHomeBodyWidget extends ConsumerWidget {
     List<Recipe> recipes = ref.watch(recipesProvider);
     Recipe randomRecipe = recipes.isNotEmpty
         ? recipes[Random().nextInt(recipes.length)]
-        : Recipe("", "", {}, []);
+        : Recipe.empty();
 
     return Column(children: [
       const Padding(
@@ -33,7 +33,7 @@ class SmallHomeBodyWidget extends ConsumerWidget {
                 label: const Text("Add recipe"),
                 onPressed: ref.watch(userProvider).value == null
                     ? null
-                    : () async {
+                    : () {
                         print("1");
                       }),
             Padding(
@@ -43,7 +43,7 @@ class SmallHomeBodyWidget extends ConsumerWidget {
                     label: const Text("My recipes"),
                     onPressed: ref.watch(userProvider).value == null
                         ? null
-                        : () async {
+                        : () {
                             print("1");
                           })),
             ElevatedButton.icon(
@@ -51,7 +51,7 @@ class SmallHomeBodyWidget extends ConsumerWidget {
                 label: const Text("Favorites"),
                 onPressed: ref.watch(userProvider).value == null
                     ? null
-                    : () async {
+                    : () {
                         print("1");
                       })
           ]),

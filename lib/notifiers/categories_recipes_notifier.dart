@@ -18,7 +18,7 @@ class CategoriesRecipesNotifier extends StateNotifier<List<CategoryRecipe>> {
     state = categoriesRecipes;
   }
 
-  void addCategoriesRecipes(String recipeId, String categoryId) async {
+  void addCategoryRecipe(String recipeId, String categoryId) async {
     final categoryRecipeData =
         CategoryRecipe('', recipeId, categoryId).toFirestore();
     final categoryRecipeRef = await _firestore

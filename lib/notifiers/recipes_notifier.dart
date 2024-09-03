@@ -18,9 +18,10 @@ class RecipesNotifier extends StateNotifier<List<Recipe>> {
     state = recipes;
   }
 
-  void addRecipe(
-      String name, Map<String, String> ingredients, List<String> steps) async {
-    final recipeData = Recipe('', name, ingredients, steps).toFirestore();
+  void addRecipe(String name, Map<String, String> ingredients,
+      List<String> steps, String creatorId) async {
+    final recipeData =
+        Recipe('', name, ingredients, steps, creatorId, []).toFirestore();
     final recipeRef = await _firestore.collection('recipes').add(recipeData);
     final recipe = Recipe.fromFirestore(recipeData, recipeRef.id);
 
@@ -31,5 +32,19 @@ class RecipesNotifier extends StateNotifier<List<Recipe>> {
     await _firestore.collection('recipes').doc(id).delete();
 
     state = state.where((recipe) => recipe.id != id).toList();
+  }
+
+  void updateRecipe(String id, Map<String, dynamic> fields) async {
+    await _firestore.collection('recipes').doc(id).update(fields);
+
+    state = state.where((recipe) => recipe.id != id).toList();
+
+    final doc = await _firestore.collection('recipes').doc(id).get();
+
+    if (doc.exists) {
+      final recipe = Recipe.fromFirestore(doc.data()!, id);
+
+      state = [...state, recipe];
+    }
   }
 }
