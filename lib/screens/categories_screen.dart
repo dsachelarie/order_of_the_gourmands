@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/providers.dart';
+import '../providers.dart';
 import '../services/categories_service.dart';
 import '../breakpoints.dart';
 import '../widgets/bottom_bar_widget.dart';

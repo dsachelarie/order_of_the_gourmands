@@ -5,7 +5,7 @@ import '../breakpoints.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/top_bar_widget.dart';
 import '../models/recipe.dart';
-import '../providers/providers.dart';
+import '../providers.dart';
 
 class RecipeListScreen extends ConsumerWidget {
   const RecipeListScreen({super.key});
@@ -41,6 +41,10 @@ class RecipeListScreen extends ConsumerWidget {
 
         return false;
       }).toList();
+    } else if (filters.containsKey("creator_id")) {
+      recipes = recipes
+          .where((recipe) => recipe.creatorId == filters["creator_id"])
+          .toList();
     }
 
     List<Widget> widgets = [];
@@ -60,7 +64,11 @@ class RecipeListScreen extends ConsumerWidget {
 
     Widget body;
 
-    if (MediaQuery.of(context).size.width <= Breakpoints.md) {
+    if (recipes.isEmpty) {
+      body = const Center(
+          child: Text("No recipes were found",
+              style: TextStyle(fontSize: 20.0, color: Colors.brown)));
+    } else if (MediaQuery.of(context).size.width <= Breakpoints.md) {
       body = ListView(children: widgets);
     } else if (MediaQuery.of(context).size.width <= Breakpoints.lg) {
       body = GridView.count(

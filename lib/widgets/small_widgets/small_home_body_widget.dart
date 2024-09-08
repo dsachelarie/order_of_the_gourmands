@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../services/categories_service.dart';
 import '../../models/recipe.dart';
-import '../../services/home_service.dart';
-import '../../providers/providers.dart';
+import '../../services/recipe_service.dart';
+import '../../providers.dart';
 
 class SmallHomeBodyWidget extends ConsumerWidget {
   const SmallHomeBodyWidget({super.key});
@@ -44,7 +44,13 @@ class SmallHomeBodyWidget extends ConsumerWidget {
                     onPressed: ref.watch(userProvider).value == null
                         ? null
                         : () {
-                            print("1");
+                            ref.watch(recipeFilterProvider.notifier).update(
+                                (state) => state = {
+                                      "creator_id":
+                                          ref.watch(userProvider).value?.uid
+                                    });
+
+                            Navigator.pushNamed(context, '/recipe-list/');
                           })),
             ElevatedButton.icon(
                 icon: const Icon(Icons.star_outline_outlined),
@@ -74,7 +80,7 @@ class SmallHomeBodyWidget extends ConsumerWidget {
                           child: ListTile(
                               title: Text(randomRecipe.name),
                               subtitle: Text(
-                                  HomeService.getTruncatedRecipeSteps(
+                                  RecipeService.getTruncatedRecipeSteps(
                                       randomRecipe.steps, 300)),
                               trailing: TextButton(
                                   child: const Text("Read more"),
@@ -85,7 +91,7 @@ class SmallHomeBodyWidget extends ConsumerWidget {
                               TextStyle(fontSize: 20.0, color: Colors.brown))),
                   Column(
                       children: CategoriesService.getCategoriesList(
-                          HomeService.getMostPopularCategories(ref),
+                          CategoriesService.getMostPopularCategories(ref),
                           () => _navigateToRecipeList(context),
                           ref)),
                   Padding(

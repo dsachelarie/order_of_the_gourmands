@@ -16,7 +16,9 @@ class Recipe {
         Map<String, String>.from(data['ingredients'] as Map<String, dynamic>),
         List<String>.from(data['steps'] as List<dynamic>),
         data['creator_id'],
-        List<String>.from(data['favorite_of'] as List<dynamic>));
+        data.containsKey('favorite_of')
+            ? List<String>.from(data['favorite_of'] as List<dynamic>)
+            : []);
   }
 
   factory Recipe.empty() {
@@ -24,6 +26,12 @@ class Recipe {
   }
 
   Map<String, dynamic> toFirestore() {
-    return {'name': name, 'ingredients': ingredients, 'steps': steps};
+    return {
+      'name': name,
+      'ingredients': ingredients,
+      'steps': steps,
+      'creator_id': creatorId,
+      if (favoriteOf.isNotEmpty) 'favorite_of': favoriteOf
+    };
   }
 }

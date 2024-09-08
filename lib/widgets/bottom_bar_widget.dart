@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/recipe.dart';
-import '../providers/providers.dart';
+import '../providers.dart';
 
 class BottomBarWidget extends ConsumerWidget {
   const BottomBarWidget({super.key});
