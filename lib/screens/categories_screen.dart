@@ -35,8 +35,8 @@ class CategoriesScreen extends ConsumerWidget {
               ref));
     } else {
       body = GridView.count(
-          crossAxisCount: 4,
-          childAspectRatio: MediaQuery.of(context).size.width / 4 / 150.0,
+          crossAxisCount: 3,
+          childAspectRatio: MediaQuery.of(context).size.width / 3 / 150.0,
           children: CategoriesService.getCategoriesList(
               ref.watch(categoriesProvider),
               () => _navigateToRecipeList(context),

@@ -59,7 +59,18 @@ class RecipeListScreen extends ConsumerWidget {
                     .update((state) => state = recipe);
                 Navigator.pushNamed(context, '/recipe/');
               },
-              child: Text(recipe.name))));
+              child: Row(children: [
+                Text(recipe.name),
+                const Spacer(),
+                IconButton(
+                    icon: const Icon(Icons.star_outline_outlined),
+                    onPressed: ref.watch(userProvider).value == null
+                        ? null
+                        : () {
+                            print("1");
+                          }),
+                const Text("${0}"),
+              ]))));
     }
 
     Widget body;
@@ -75,7 +86,7 @@ class RecipeListScreen extends ConsumerWidget {
           crossAxisCount: 2, childAspectRatio: 8, children: widgets);
     } else {
       body = GridView.count(
-          crossAxisCount: 4, childAspectRatio: 4, children: widgets);
+          crossAxisCount: 3, childAspectRatio: 16 / 3, children: widgets);
     }
 
     return SafeArea(

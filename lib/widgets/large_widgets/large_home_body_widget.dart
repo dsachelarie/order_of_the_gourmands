@@ -77,8 +77,8 @@ class LargeHomeBodyWidget extends ConsumerWidget {
                                               .update((state) => state = {
                                                     "creator_id": ref
                                                         .watch(userProvider)
-                                                        .value
-                                                        ?.uid
+                                                        .value!
+                                                        .uid
                                                   });
 
                                           Navigator.pushNamed(

@@ -47,7 +47,7 @@ class SmallHomeBodyWidget extends ConsumerWidget {
                             ref.watch(recipeFilterProvider.notifier).update(
                                 (state) => state = {
                                       "creator_id":
-                                          ref.watch(userProvider).value?.uid
+                                          ref.watch(userProvider).value!.uid
                                     });
 
                             Navigator.pushNamed(context, '/recipe-list/');
