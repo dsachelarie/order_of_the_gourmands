@@ -61,8 +61,8 @@ class SmallRecipeBodyWidget extends ConsumerWidget {
       Expanded(
           child: ListView(
               padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 8,
-                  right: MediaQuery.of(context).size.width / 8,
+                  left: MediaQuery.of(context).size.width / 16,
+                  right: MediaQuery.of(context).size.width / 16,
                   top: MediaQuery.of(context).size.height / 16),
               children: [
             const Placeholder(color: Colors.brown),
@@ -73,7 +73,6 @@ class SmallRecipeBodyWidget extends ConsumerWidget {
                         style:
                             TextStyle(fontSize: 20.0, color: Colors.brown)))),
             Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: RecipeService.getIngredientsList(recipe.ingredients)),
             const Center(
                 child: Padding(
