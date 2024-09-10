@@ -50,6 +50,9 @@ class RecipeListScreen extends ConsumerWidget {
     List<Widget> widgets = [];
 
     for (Recipe recipe in recipes) {
+      bool starPressed = ref.watch(userProvider).value != null &&
+          recipe.favoriteOf.contains(ref.watch(userProvider).value!.uid);
+
       widgets.add(Padding(
           padding: const EdgeInsets.only(right: 10.0, left: 10.0, top: 10.0),
           child: ElevatedButton(
@@ -63,11 +66,24 @@ class RecipeListScreen extends ConsumerWidget {
                 Text(recipe.name),
                 const Spacer(),
                 IconButton(
-                    icon: const Icon(Icons.star_outline_outlined),
+                    icon: Icon(Icons.star_outline_outlined,
+                        color: starPressed ? Colors.yellow : null),
                     onPressed: ref.watch(userProvider).value == null
                         ? null
                         : () {
-                            print("1");
+                            List favoriteOf = recipe.favoriteOf;
+
+                            if (starPressed) {
+                              favoriteOf
+                                  .remove(ref.watch(userProvider).value!.uid);
+                            } else {
+                              favoriteOf
+                                  .add(ref.watch(userProvider).value!.uid);
+                            }
+
+                            ref.watch(recipesProvider.notifier).updateRecipe(
+                                recipe.id, {"favorite_of": favoriteOf});
+                            starPressed = !starPressed;
                           }),
                 const Text("${0}"),
               ]))));
