@@ -9,7 +9,9 @@ class SmallRecipeBodyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Recipe recipe = ref.watch(activeRecipeProvider);
+    int recipeIndex = ref.watch(activeRecipeIndexProvider);
+    List<Recipe> recipes = ref.watch(recipesProvider);
+    Recipe recipe = recipes[recipeIndex];
     bool starPressed = ref.watch(userProvider).value != null &&
         recipe.favoriteOf.contains(ref.watch(userProvider).value!.uid);
 
@@ -23,8 +25,11 @@ class SmallRecipeBodyWidget extends ConsumerWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                 child: IconButton(
-                    icon: Icon(Icons.star_outline_outlined,
-                        color: starPressed ? Colors.yellow : null),
+                    icon: Stack(children: [
+                      if (starPressed)
+                        const Icon(Icons.star, color: Colors.yellow),
+                      const Icon(Icons.star_border),
+                    ]),
                     onPressed: ref.watch(userProvider).value == null
                         ? null
                         : () {
@@ -42,8 +47,9 @@ class SmallRecipeBodyWidget extends ConsumerWidget {
                                 recipe.id, {"favorite_of": favoriteOf});
                             starPressed = !starPressed;
                           })),
-            const Padding(
-                padding: EdgeInsets.only(right: 10.0), child: Text("${0}")),
+            Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Text("${recipe.favoriteOf.length}")),
           ]),
         ]),
       ]),

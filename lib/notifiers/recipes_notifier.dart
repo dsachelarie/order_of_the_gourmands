@@ -37,14 +37,18 @@ class RecipesNotifier extends StateNotifier<List<Recipe>> {
   void updateRecipe(String id, Map<String, dynamic> fields) async {
     await _firestore.collection('recipes').doc(id).update(fields);
 
-    state = state.where((recipe) => recipe.id != id).toList();
+    int recipeIndex = state.indexWhere((recipe) => recipe.id == id);
 
     final doc = await _firestore.collection('recipes').doc(id).get();
 
     if (doc.exists) {
       final recipe = Recipe.fromFirestore(doc.data()!, id);
 
-      state = [...state, recipe];
+      state = [
+        ...state.sublist(0, recipeIndex),
+        recipe,
+        ...state.sublist(recipeIndex + 1)
+      ];
     }
   }
 }

@@ -45,11 +45,16 @@ class RecipeListScreen extends ConsumerWidget {
       recipes = recipes
           .where((recipe) => recipe.creatorId == filters["creator_id"])
           .toList();
+    } else if (filters.containsKey("favorite_of")) {
+      recipes = recipes
+          .where((recipe) => recipe.favoriteOf.contains(filters["favorite_of"]))
+          .toList();
     }
 
     List<Widget> widgets = [];
 
-    for (Recipe recipe in recipes) {
+    for (int i = 0; i < recipes.length; i++) {
+      Recipe recipe = recipes[i];
       bool starPressed = ref.watch(userProvider).value != null &&
           recipe.favoriteOf.contains(ref.watch(userProvider).value!.uid);
 
@@ -58,16 +63,19 @@ class RecipeListScreen extends ConsumerWidget {
           child: ElevatedButton(
               onPressed: () {
                 ref
-                    .watch(activeRecipeProvider.notifier)
-                    .update((state) => state = recipe);
+                    .watch(activeRecipeIndexProvider.notifier)
+                    .update((state) => state = i);
                 Navigator.pushNamed(context, '/recipe/');
               },
               child: Row(children: [
                 Text(recipe.name),
                 const Spacer(),
                 IconButton(
-                    icon: Icon(Icons.star_outline_outlined,
-                        color: starPressed ? Colors.yellow : null),
+                    icon: Stack(children: [
+                      if (starPressed)
+                        const Icon(Icons.star, color: Colors.yellow),
+                      const Icon(Icons.star_border),
+                    ]),
                     onPressed: ref.watch(userProvider).value == null
                         ? null
                         : () {
@@ -85,7 +93,7 @@ class RecipeListScreen extends ConsumerWidget {
                                 recipe.id, {"favorite_of": favoriteOf});
                             starPressed = !starPressed;
                           }),
-                const Text("${0}"),
+                Text("${recipe.favoriteOf.length}"),
               ]))));
     }
 

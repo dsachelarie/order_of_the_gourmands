@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../buttons/add_recipe_button.dart';
+import '../buttons/favorites_button.dart';
+import '../buttons/my_recipes_button.dart';
 import '../../services/categories_service.dart';
 import '../../models/recipe.dart';
 import '../../providers.dart';
@@ -30,40 +33,13 @@ class MediumHomeBodyWidget extends ConsumerWidget {
               children: [
             Card(
                 child: Column(children: [
-              Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: ElevatedButton.icon(
-                      icon: const Icon(Icons.add_outlined),
-                      label: const Text("Add recipe"),
-                      onPressed: ref.watch(userProvider).value == null
-                          ? null
-                          : () {
-                              print("1");
-                            })),
-              Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                  child: ElevatedButton.icon(
-                      icon: const Icon(Icons.folder_outlined),
-                      label: const Text("My recipes"),
-                      onPressed: ref.watch(userProvider).value == null
-                          ? null
-                          : () {
-                              ref.watch(recipeFilterProvider.notifier).update(
-                                  (state) => state = {
-                                        "creator_id":
-                                            ref.watch(userProvider).value!.uid
-                                      });
-
-                              Navigator.pushNamed(context, '/recipe-list/');
-                            })),
-              ElevatedButton.icon(
-                  icon: const Icon(Icons.star_outline_outlined),
-                  label: const Text("Favorites"),
-                  onPressed: ref.watch(userProvider).value == null
-                      ? null
-                      : () {
-                          print("1");
-                        }),
+              const Padding(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: AddRecipeButton()),
+              const Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  child: MyRecipesButton()),
+              const FavoritesButton(),
               ref.watch(userProvider).value == null
                   ? const Center(
                       child: Text("Please log in to use these features"))
