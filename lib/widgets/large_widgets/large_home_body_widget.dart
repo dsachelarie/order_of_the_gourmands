@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../buttons/more_categories_button.dart';
+import '../buttons/read_more_button.dart';
 import '../buttons/add_recipe_button.dart';
 import '../buttons/favorites_button.dart';
 import '../buttons/my_recipes_button.dart';
@@ -39,9 +41,8 @@ class LargeHomeBodyWidget extends ConsumerWidget {
                             subtitle: Text(
                                 RecipeService.getTruncatedRecipeSteps(
                                     randomRecipe.steps, 900)),
-                            trailing: TextButton(
-                                child: const Text("Read more"),
-                                onPressed: () => print("1"))))
+                            trailing:
+                                ReadMoreButton(recipes.indexOf(randomRecipe))))
                     : Container(),
               ])),
       recipes.isNotEmpty
@@ -78,13 +79,9 @@ class LargeHomeBodyWidget extends ConsumerWidget {
                             CategoriesService.getMostPopularCategories(ref),
                             () => _navigateToRecipeList(context),
                             ref)),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                        child: ElevatedButton.icon(
-                            icon: const Icon(Icons.category_outlined),
-                            label: const Text("More categories"),
-                            onPressed: () =>
-                                Navigator.pushNamed(context, '/categories/')))
+                    const Padding(
+                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        child: MoreCategoriesButton())
                   ]))
           : Container()
     ]);

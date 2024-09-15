@@ -13,11 +13,12 @@ class RecipeListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Recipe> recipes = ref.watch(recipesProvider);
+    List<Recipe> filteredRecipes = [];
     List<CategoryRecipe> categoriesRecipes = ref.watch(recipeCategoryProvider);
     Map<String, dynamic> filters = ref.watch(recipeFilterProvider);
 
     if (filters.containsKey("name")) {
-      recipes = recipes.where((recipe) {
+      filteredRecipes = recipes.where((recipe) {
         for (String seq in filters["name"]) {
           if (recipe.name.toLowerCase().contains(seq)) {
             return true;
@@ -32,7 +33,7 @@ class RecipeListScreen extends ConsumerWidget {
               categoryRecipe.categoryId == filters["category_id"])
           .toList();
 
-      recipes = recipes.where((recipe) {
+      filteredRecipes = recipes.where((recipe) {
         for (CategoryRecipe categoryRecipe in categoriesRecipes) {
           if (categoryRecipe.recipeId == recipe.id) {
             return true;
@@ -42,19 +43,18 @@ class RecipeListScreen extends ConsumerWidget {
         return false;
       }).toList();
     } else if (filters.containsKey("creator_id")) {
-      recipes = recipes
+      filteredRecipes = recipes
           .where((recipe) => recipe.creatorId == filters["creator_id"])
           .toList();
     } else if (filters.containsKey("favorite_of")) {
-      recipes = recipes
+      filteredRecipes = recipes
           .where((recipe) => recipe.favoriteOf.contains(filters["favorite_of"]))
           .toList();
     }
 
     List<Widget> widgets = [];
 
-    for (int i = 0; i < recipes.length; i++) {
-      Recipe recipe = recipes[i];
+    for (Recipe recipe in filteredRecipes) {
       bool starPressed = ref.watch(userProvider).value != null &&
           recipe.favoriteOf.contains(ref.watch(userProvider).value!.uid);
 
@@ -64,7 +64,7 @@ class RecipeListScreen extends ConsumerWidget {
               onPressed: () {
                 ref
                     .watch(activeRecipeIndexProvider.notifier)
-                    .update((state) => state = i);
+                    .update((state) => state = recipes.indexOf(recipe));
                 Navigator.pushNamed(context, '/recipe/');
               },
               child: Row(children: [
@@ -99,7 +99,7 @@ class RecipeListScreen extends ConsumerWidget {
 
     Widget body;
 
-    if (recipes.isEmpty) {
+    if (filteredRecipes.isEmpty) {
       body = const Center(
           child: Text("No recipes were found",
               style: TextStyle(fontSize: 20.0, color: Colors.brown)));

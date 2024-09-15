@@ -27,3 +27,5 @@ final searchActivationProvider = StateProvider<bool>((_) => false);
 final userProvider = StreamProvider<User?>((ref) {
   return FirebaseAuth.instance.authStateChanges();
 });
+
+final recipeEditProvider = StateProvider<Map<String, dynamic>>((_) => {});
