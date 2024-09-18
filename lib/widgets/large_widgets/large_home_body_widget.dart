@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../models/category.dart';
+import '../buttons/category_button.dart';
 import '../buttons/more_categories_button.dart';
 import '../buttons/read_more_button.dart';
 import '../buttons/add_recipe_button.dart';
@@ -14,16 +16,19 @@ import '../../models/recipe.dart';
 class LargeHomeBodyWidget extends ConsumerWidget {
   const LargeHomeBodyWidget({super.key});
 
-  void _navigateToRecipeList(BuildContext context) {
-    Navigator.pushNamed(context, '/recipe-list/');
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Recipe> recipes = ref.watch(recipesProvider);
     Recipe randomRecipe = recipes.isNotEmpty
         ? recipes[Random().nextInt(recipes.length)]
         : Recipe.empty();
+
+    List<Widget> categoriesWidgets = [];
+
+    for (Category category in CategoriesService.getMostPopularCategories(ref)) {
+      categoriesWidgets
+          .add(SizedBox(height: 150.0, child: CategoryButton(category)));
+    }
 
     return Row(children: [
       Expanded(
@@ -74,11 +79,7 @@ class LargeHomeBodyWidget extends ConsumerWidget {
                             child: Text("Categories with most recipes:",
                                 style: TextStyle(
                                     fontSize: 20.0, color: Colors.brown)))),
-                    Column(
-                        children: CategoriesService.getCategoriesList(
-                            CategoriesService.getMostPopularCategories(ref),
-                            () => _navigateToRecipeList(context),
-                            ref)),
+                    Column(children: categoriesWidgets),
                     const Padding(
                         padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: MoreCategoriesButton())

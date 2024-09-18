@@ -13,7 +13,17 @@ class AddRecipeButton extends ConsumerWidget {
         onPressed: ref.watch(userProvider).value == null
             ? null
             : () {
-                print("1");
+                ref
+                    .watch(recipeEditProvider.notifier)
+                    .update((state) => state = {
+                          "id": "",
+                          "name": "",
+                          "ingredients": [""],
+                          "steps": [""],
+                          "categories": [""]
+                        });
+
+                Navigator.pushNamed(context, '/recipe-edit/');
               });
   }
 }

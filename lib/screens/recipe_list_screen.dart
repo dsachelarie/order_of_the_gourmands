@@ -93,7 +93,7 @@ class RecipeListScreen extends ConsumerWidget {
                                 recipe.id, {"favorite_of": favoriteOf});
                             starPressed = !starPressed;
                           }),
-                Text("${recipe.favoriteOf.length}"),
+                Text("${recipe.favoriteOf.length}")
               ]))));
     }
 

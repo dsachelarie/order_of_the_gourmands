@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './screens/recipe_edit_screen.dart';
 import './screens/recipe_screen.dart';
 import './screens/recipe_list_screen.dart';
 import './screens/categories_screen.dart';
@@ -24,6 +25,7 @@ Widget createApp() {
         '/recipe/': (_) => const RecipeScreen(),
         '/categories/': (_) => const CategoriesScreen(),
         '/recipe-list/': (_) => const RecipeListScreen(),
+        '/recipe-edit/': (_) => RecipeEditScreen()
       },
     ),
   );
