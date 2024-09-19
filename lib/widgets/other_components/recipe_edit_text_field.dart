@@ -9,8 +9,11 @@ class RecipeEditTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-        child: TextField(
-            controller: controller,
-            decoration: const InputDecoration(border: OutlineInputBorder())));
+        child: SizedBox(
+            width: 125.0,
+            child: TextField(
+                controller: controller,
+                decoration:
+                    const InputDecoration(border: OutlineInputBorder()))));
   }
 }

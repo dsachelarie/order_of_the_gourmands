@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:order_of_the_gourmands/models/ingredient_tuple.dart';
 
 class RecipeService {
   static String getTruncatedRecipeSteps(
@@ -37,5 +38,16 @@ class RecipeService {
     }
 
     return widgets;
+  }
+
+  static bool formIsValid(String name, List<IngredientTuple> ingredients,
+      List<String> steps, List<String> additionalCategories) {
+    return name != "" &&
+        ingredients
+            .where(
+                (ingredient) => ingredient.name == "" || ingredient.value == "")
+            .isEmpty &&
+        steps.where((step) => step == "").isEmpty &&
+        additionalCategories.where((category) => category == "").isEmpty;
   }
 }

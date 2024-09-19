@@ -25,7 +25,7 @@ Widget createApp() {
         '/recipe/': (_) => const RecipeScreen(),
         '/categories/': (_) => const CategoriesScreen(),
         '/recipe-list/': (_) => const RecipeListScreen(),
-        '/recipe-edit/': (_) => RecipeEditScreen()
+        '/recipe-edit/': (_) => const RecipeEditScreen()
       },
     ),
   );

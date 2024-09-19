@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_of_the_gourmands/services/recipe_service.dart';
+import 'package:order_of_the_gourmands/widgets/buttons/edit_recipe_button.dart';
+import '../../services/recipe_service.dart';
+import '../buttons/delete_recipe_button.dart';
 import '../../models/recipe.dart';
 import '../../providers.dart';
 
@@ -62,20 +64,10 @@ class SmallRecipeBodyWidget extends ConsumerWidget {
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Column(children: [
             Row(children: [
-              ElevatedButton.icon(
-                  icon: const Icon(Icons.edit_outlined),
-                  label: const Text("Edit recipe"),
-                  onPressed: () {
-                    print("1");
-                  }),
+              EditRecipeButton(recipe),
               Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: ElevatedButton.icon(
-                      icon: const Icon(Icons.delete_outline_outlined),
-                      label: const Text("Delete recipe"),
-                      onPressed: () {
-                        print("1");
-                      }))
+                  child: DeleteRecipeButton(recipe.id))
             ])
           ]),
         ]),

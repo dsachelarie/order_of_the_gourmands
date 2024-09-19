@@ -29,3 +29,5 @@ final userProvider = StreamProvider<User?>((ref) {
 });
 
 final recipeEditProvider = StateProvider<Map<String, dynamic>>((_) => {});
+
+final formValidationProvider = StateProvider<bool>((_) => true);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../models/ingredient_tuple.dart';
 import '../../providers.dart';
 
 class AddRecipeButton extends ConsumerWidget {
@@ -18,10 +19,15 @@ class AddRecipeButton extends ConsumerWidget {
                     .update((state) => state = {
                           "id": "",
                           "name": "",
-                          "ingredients": [""],
+                          "ingredients": [IngredientTuple("", "")],
                           "steps": [""],
-                          "categories": [""]
+                          "categories": [],
+                          "additional_categories": []
                         });
+
+                ref
+                    .watch(formValidationProvider.notifier)
+                    .update((state) => state = true);
 
                 Navigator.pushNamed(context, '/recipe-edit/');
               });
