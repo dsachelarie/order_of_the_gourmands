@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:order_of_the_gourmands/widgets/buttons/edit_recipe_button.dart';
+import '../recipe_body_widget.dart';
+import '../buttons/edit_recipe_button.dart';
+import '../buttons/star_button.dart';
 import '../buttons/delete_recipe_button.dart';
-import '../../services/recipe_service.dart';
 import '../../models/recipe.dart';
 import '../../providers.dart';
 
-class MediumRecipeBodyWidget extends ConsumerWidget {
+class MediumRecipeBodyWidget extends RecipeBodyWidget {
   const MediumRecipeBodyWidget({super.key});
 
   @override
@@ -26,29 +27,7 @@ class MediumRecipeBodyWidget extends ConsumerWidget {
                 : const Text(""),
             Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                child: IconButton(
-                    icon: Stack(children: [
-                      if (starPressed)
-                        const Icon(Icons.star, color: Colors.yellow),
-                      const Icon(Icons.star_border),
-                    ]),
-                    onPressed: ref.watch(userProvider).value == null
-                        ? null
-                        : () {
-                            List favoriteOf = recipe.favoriteOf;
-
-                            if (starPressed) {
-                              favoriteOf
-                                  .remove(ref.watch(userProvider).value!.uid);
-                            } else {
-                              favoriteOf
-                                  .add(ref.watch(userProvider).value!.uid);
-                            }
-
-                            ref.watch(recipesProvider.notifier).updateRecipe(
-                                recipe.id, {"favorite_of": favoriteOf});
-                            starPressed = !starPressed;
-                          })),
+                child: StarButton(starPressed, recipe)),
             Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: Text("${recipe.favoriteOf.length}")),
@@ -56,7 +35,7 @@ class MediumRecipeBodyWidget extends ConsumerWidget {
         ]),
       ]),
       Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
+          padding: const EdgeInsets.only(bottom: 20.0),
           child: Text(recipe.name,
               style: const TextStyle(fontSize: 30.0, color: Colors.brown))),
       if (ref.watch(userProvider).value != null &&
@@ -76,7 +55,7 @@ class MediumRecipeBodyWidget extends ConsumerWidget {
               padding: EdgeInsets.only(
                   left: MediaQuery.of(context).size.width / 16,
                   right: MediaQuery.of(context).size.width / 16,
-                  top: MediaQuery.of(context).size.height / 16),
+                  top: MediaQuery.of(context).size.height / 36),
               children: [
             Row(children: [
               const Placeholder(color: Colors.brown),
@@ -88,9 +67,7 @@ class MediumRecipeBodyWidget extends ConsumerWidget {
                         child: Text("Ingredients:",
                             style: TextStyle(
                                 fontSize: 20.0, color: Colors.brown)))),
-                Column(
-                    children:
-                        RecipeService.getIngredientsList(recipe.ingredients))
+                Column(children: buildIngredientsWidgets(recipe.ingredients))
               ])
             ]),
             const Center(
@@ -101,7 +78,7 @@ class MediumRecipeBodyWidget extends ConsumerWidget {
                             TextStyle(fontSize: 20.0, color: Colors.brown)))),
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: RecipeService.getStepsList(recipe.steps))
+                children: buildStepsWidgets(recipe.steps))
           ])),
     ]);
   }
