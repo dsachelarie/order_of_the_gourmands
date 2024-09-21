@@ -18,7 +18,7 @@ class RecipesNotifier extends StateNotifier<List<Recipe>> {
     state = recipes;
   }
 
-  void addRecipe(String name, Map<String, String> ingredients,
+  Future<String> addRecipe(String name, Map<String, String> ingredients,
       List<String> steps, String creatorId) async {
     final recipeData =
         Recipe('', name, ingredients, steps, creatorId, []).toFirestore();
@@ -26,6 +26,8 @@ class RecipesNotifier extends StateNotifier<List<Recipe>> {
     final recipe = Recipe.fromFirestore(recipeData, recipeRef.id);
 
     state = [...state, recipe];
+
+    return recipe.id;
   }
 
   void deleteRecipe(String id) async {

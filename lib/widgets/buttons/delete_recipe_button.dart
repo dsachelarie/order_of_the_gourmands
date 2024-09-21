@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../models/category.dart';
 import '../../models/category_recipe.dart';
 import '../../providers.dart';
 
@@ -19,30 +18,26 @@ class DeleteRecipeButton extends ConsumerWidget {
 
           ref.watch(recipesProvider.notifier).deleteRecipe(recipeId);
 
-          List<dynamic> toDelete = ref
-              .watch(recipeCategoryProvider)
+          List<CategoryRecipe> categoriesRecipes =
+              ref.watch(recipeCategoryProvider);
+          List<dynamic> toDelete = categoriesRecipes
               .where((recipeCategory) => recipeCategory.recipeId == recipeId)
               .toList();
 
           for (CategoryRecipe categoryRecipe in toDelete) {
+            if (categoriesRecipes
+                    .where((recipeCategory) =>
+                        recipeCategory.categoryId == categoryRecipe.categoryId)
+                    .length ==
+                1) {
+              ref
+                  .watch(categoriesProvider.notifier)
+                  .deleteCategory(categoryRecipe.categoryId);
+            }
+
             ref
                 .watch(recipeCategoryProvider.notifier)
                 .deleteCategoryRecipe(categoryRecipe.id);
-          }
-
-          List<CategoryRecipe> categoriesRecipes =
-              ref.watch(recipeCategoryProvider);
-          List<Category> categories = ref.watch(categoriesProvider);
-
-          for (Category category in categories) {
-            if (categoriesRecipes
-                .where((categoryRecipe) =>
-                    categoryRecipe.categoryId == category.id)
-                .isEmpty) {
-              ref
-                  .watch(categoriesProvider.notifier)
-                  .deleteCategory(category.id);
-            }
           }
         });
   }

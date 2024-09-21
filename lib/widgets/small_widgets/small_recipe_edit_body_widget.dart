@@ -15,16 +15,16 @@ class SmallRecipeEditBodyWidget extends RecipeEditBodyWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Map<String, dynamic> recipeInfo = ref.watch(recipeEditProvider);
 
-    recipeNameController.text = recipeInfo["name"];
-
     if (!RecipeService.checkRecipeInfoSoundness(recipeInfo)) {
       return const Center(
           child: Text("Something went wrong",
               style: TextStyle(fontSize: 20.0, color: Colors.brown)));
     }
 
+    recipeNameController.text = recipeInfo["name"];
+
     clearWidgets();
-    buildIngredientsWidgets(recipeInfo);
+    buildIngredientsWidgets(recipeInfo, 125.0);
     buildStepsWidgets(recipeInfo);
     buildCategoriesWidgets(recipeInfo, ref);
 

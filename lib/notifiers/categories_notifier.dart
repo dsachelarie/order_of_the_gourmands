@@ -18,13 +18,15 @@ class CategoriesNotifier extends StateNotifier<List<Category>> {
     state = categories;
   }
 
-  void addCategory(String name) async {
+  Future<String> addCategory(String name) async {
     final categoryData = Category('', name).toFirestore();
     final categoryRef =
         await _firestore.collection('categories').add(categoryData);
     final category = Category.fromFirestore(categoryData, categoryRef.id);
 
     state = [...state, category];
+
+    return category.id;
   }
 
   void deleteCategory(String id) async {

@@ -33,18 +33,21 @@ abstract class RecipeEditBodyWidget extends ConsumerWidget {
     newCategoriesControllers.clear();
   }
 
-  void buildIngredientsWidgets(Map<String, dynamic> recipeInfo) {
+  void buildIngredientsWidgets(
+      Map<String, dynamic> recipeInfo, double textFieldSize) {
     for (int i = 0; i < recipeInfo["ingredients"].length; i++) {
       ingredientsControllers.add(
           IngredientTuple(TextEditingController(), TextEditingController()));
       ingredientsControllers[i].name.text = recipeInfo["ingredients"][i].name;
       ingredientsControllers[i].value.text = recipeInfo["ingredients"][i].value;
       ingredientsWidgets.add(Row(children: [
-        RecipeEditTextField(ingredientsControllers[i].name),
+        RecipeEditTextField(ingredientsControllers[i].name,
+            size: textFieldSize),
         const Spacer(),
         const Text("\u2190 name : quantity \u2192"),
         const Spacer(),
-        RecipeEditTextField(ingredientsControllers[i].value)
+        RecipeEditTextField(ingredientsControllers[i].value,
+            size: textFieldSize)
       ]));
     }
   }

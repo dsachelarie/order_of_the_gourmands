@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../services/categories_service.dart';
 import '../../services/recipe_service.dart';
 import '../../models/ingredient_tuple.dart';
 import '../../providers.dart';
@@ -23,7 +24,7 @@ class EditRecipeSubmitButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
         child: const Text("Submit"),
-        onPressed: () {
+        onPressed: () async {
           bool formIsValid = RecipeService.formIsValid(
               recipeNameController.text,
               ingredientsControllers
@@ -46,89 +47,55 @@ class EditRecipeSubmitButton extends ConsumerWidget {
                   stepsControllers.map((controller) => controller.text).toList()
             });
 
+            CategoriesService.updateCategoriesRecipes(recipeInfo, ref);
+
             for (TextEditingController controller in newCategoriesControllers) {
-              ref
+              String categoryId = await ref
                   .watch(categoriesProvider.notifier)
                   .addCategory(controller.text);
 
-              ref.watch(recipeCategoryProvider.notifier).addCategoryRecipe(
-                  recipeInfo["id"],
-                  ref
-                      .watch(categoriesProvider)
-                      .where((category) => category.name == controller.text)
-                      .toList()
-                      .first
-                      .id);
-            }
-
-            for (String categoryName in recipeInfo["categories"]) {
-              ref.watch(recipeCategoryProvider.notifier).addCategoryRecipe(
-                  recipeInfo["id"],
-                  ref
-                      .watch(categoriesProvider)
-                      .where((category) => category.name == categoryName)
-                      .toList()
-                      .first
-                      .id);
+              ref
+                  .watch(recipeCategoryProvider.notifier)
+                  .addCategoryRecipe(recipeInfo["id"], categoryId);
             }
 
             ref
                 .watch(formValidationProvider.notifier)
                 .update((state) => state = true);
 
+            // ignore: use_build_context_synchronously
             Navigator.pop(context);
           } else if (formIsValid) {
-            ref.watch(recipesProvider.notifier).addRecipe(
-                recipeNameController.text,
-                {
-                  for (var controllerTuple in ingredientsControllers)
-                    controllerTuple.name.text: controllerTuple.value.text
-                },
-                stepsControllers.map((controller) => controller.text).toList(),
-                ref.watch(userProvider).value!.uid);
+            recipeInfo["id"] = await ref
+                .watch(recipesProvider.notifier)
+                .addRecipe(
+                    recipeNameController.text,
+                    {
+                      for (var controllerTuple in ingredientsControllers)
+                        controllerTuple.name.text: controllerTuple.value.text
+                    },
+                    stepsControllers
+                        .map((controller) => controller.text)
+                        .toList(),
+                    ref.watch(userProvider).value!.uid);
+
+            CategoriesService.addCategoriesRecipes(recipeInfo, ref);
 
             for (TextEditingController controller in newCategoriesControllers) {
-              ref
+              String categoryId = await ref
                   .watch(categoriesProvider.notifier)
                   .addCategory(controller.text);
 
-              ref.watch(recipeCategoryProvider.notifier).addCategoryRecipe(
-                  ref
-                      .watch(recipesProvider)
-                      .where(
-                          (recipe) => recipe.name == recipeNameController.text)
-                      .toList()
-                      .first
-                      .id,
-                  ref
-                      .watch(categoriesProvider)
-                      .where((category) => category.name == controller.text)
-                      .toList()
-                      .first
-                      .id);
-            }
-
-            for (String categoryName in recipeInfo["categories"]) {
-              ref.watch(recipeCategoryProvider.notifier).addCategoryRecipe(
-                  ref
-                      .watch(recipesProvider)
-                      .where(
-                          (recipe) => recipe.name == recipeNameController.text)
-                      .toList()
-                      .first
-                      .id,
-                  ref
-                      .watch(categoriesProvider)
-                      .where((category) => category.name == categoryName)
-                      .toList()
-                      .first
-                      .id);
+              ref
+                  .watch(recipeCategoryProvider.notifier)
+                  .addCategoryRecipe(recipeInfo["id"], categoryId);
             }
 
             ref
                 .watch(formValidationProvider.notifier)
                 .update((state) => state = true);
 
+            // ignore: use_build_context_synchronously
             Navigator.pop(context);
           } else {
             ref

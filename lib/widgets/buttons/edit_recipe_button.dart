@@ -23,7 +23,12 @@ class EditRecipeButton extends ConsumerWidget {
                         IngredientTuple(ingredient.key, ingredient.value))
                     .toList(),
                 "steps": recipe.steps,
-                "categories": [],
+                "categories": ref
+                    .watch(recipeCategoryProvider)
+                    .where((recipeCategory) =>
+                        recipeCategory.recipeId == recipe.id)
+                    .map((recipeCategory) => recipeCategory.categoryId)
+                    .toList(),
                 "additional_categories": []
               });
 

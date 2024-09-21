@@ -30,4 +30,47 @@ class CategoriesService {
 
     return selectedCategories;
   }
+
+  static void addCategoriesRecipes(
+      Map<String, dynamic> recipeInfo, WidgetRef ref) {
+    List<CategoryRecipe> categoriesRecipes = ref.watch(recipeCategoryProvider);
+
+    for (String categoryId in recipeInfo["categories"]) {
+      if (categoriesRecipes
+          .where((categoryRecipe) =>
+              categoryRecipe.categoryId == categoryId &&
+              categoryRecipe.recipeId == recipeInfo["id"])
+          .isEmpty) {
+        ref
+            .watch(recipeCategoryProvider.notifier)
+            .addCategoryRecipe(recipeInfo["id"], categoryId);
+      }
+    }
+  }
+
+  static void updateCategoriesRecipes(
+      Map<String, dynamic> recipeInfo, WidgetRef ref) {
+    List<CategoryRecipe> categoriesRecipes = ref.watch(recipeCategoryProvider);
+
+    for (CategoryRecipe categoryRecipe in categoriesRecipes) {
+      if (categoryRecipe.recipeId == recipeInfo["id"] &&
+          !recipeInfo["categories"].contains(categoryRecipe.categoryId)) {
+        if (categoriesRecipes
+                .where((recipeCategory) =>
+                    recipeCategory.categoryId == categoryRecipe.categoryId)
+                .length ==
+            1) {
+          ref
+              .watch(categoriesProvider.notifier)
+              .deleteCategory(categoryRecipe.categoryId);
+        }
+
+        ref
+            .watch(recipeCategoryProvider.notifier)
+            .deleteCategoryRecipe(categoryRecipe.id);
+      }
+    }
+
+    addCategoriesRecipes(recipeInfo, ref);
+  }
 }

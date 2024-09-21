@@ -15,25 +15,25 @@ class MediumRecipeEditBodyWidget extends RecipeEditBodyWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Map<String, dynamic> recipeInfo = ref.watch(recipeEditProvider);
 
-    recipeNameController.text = recipeInfo["name"];
-
     if (!RecipeService.checkRecipeInfoSoundness(recipeInfo)) {
       return const Center(
           child: Text("Something went wrong",
               style: TextStyle(fontSize: 20.0, color: Colors.brown)));
     }
 
+    recipeNameController.text = recipeInfo["name"];
+
     clearWidgets();
-    buildIngredientsWidgets(recipeInfo);
+    buildIngredientsWidgets(recipeInfo, 175.0);
     buildStepsWidgets(recipeInfo);
     buildCategoriesWidgets(recipeInfo, ref);
 
-    return Column(children: [
+    return Row(children: [
       Expanded(
           child: ListView(
               padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 2 - 200.0,
-                  right: MediaQuery.of(context).size.width / 2 - 200.0,
+                  left: MediaQuery.of(context).size.width / 2 - 350.0,
+                  right: MediaQuery.of(context).size.width / 2 - 350.0,
                   top: 50.0),
               children: [
             const Text("Recipe name",
@@ -118,17 +118,21 @@ class MediumRecipeEditBodyWidget extends RecipeEditBodyWidget {
               ]),
             )
           ])),
-      Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: EditRecipeSubmitButton(
-              recipeNameController,
-              ingredientsControllers,
-              stepsControllers,
-              newCategoriesControllers,
-              recipeInfo)),
-      ref.watch(formValidationProvider)
-          ? const Text("")
-          : const Text("Fields cannot be left empty")
+      Column(children: [
+        const Spacer(),
+        Padding(
+            padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+            child: EditRecipeSubmitButton(
+                recipeNameController,
+                ingredientsControllers,
+                stepsControllers,
+                newCategoriesControllers,
+                recipeInfo)),
+        ref.watch(formValidationProvider)
+            ? const Text("")
+            : const Text("Fields cannot be left empty"),
+        const Spacer()
+      ])
     ]);
   }
 }
