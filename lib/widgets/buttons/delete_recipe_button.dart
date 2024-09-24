@@ -14,7 +14,9 @@ class DeleteRecipeButton extends ConsumerWidget {
         icon: const Icon(Icons.delete_outline_outlined),
         label: const Text("Delete recipe"),
         onPressed: () {
-          Navigator.pop(context);
+          while (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
 
           ref.watch(recipesProvider.notifier).deleteRecipe(recipeId);
 

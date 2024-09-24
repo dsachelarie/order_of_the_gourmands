@@ -12,9 +12,18 @@ class MediumRecipeBodyWidget extends RecipeBodyWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int recipeIndex = ref.watch(activeRecipeIndexProvider);
     List<Recipe> recipes = ref.watch(recipesProvider);
-    Recipe recipe = recipes[recipeIndex];
+    List<Recipe> filteredRecipes = recipes
+        .where((recipe) => recipe.id == ref.watch(activeRecipeIdProvider))
+        .toList();
+
+    if (filteredRecipes.isEmpty) {
+      return const Center(
+          child: Text("Something went wrong",
+              style: TextStyle(fontSize: 20.0, color: Colors.brown)));
+    }
+
+    Recipe recipe = filteredRecipes.first;
     bool starPressed = ref.watch(userProvider).value != null &&
         recipe.favoriteOf.contains(ref.watch(userProvider).value!.uid);
 
@@ -55,7 +64,7 @@ class MediumRecipeBodyWidget extends RecipeBodyWidget {
               padding: EdgeInsets.only(
                   left: MediaQuery.of(context).size.width / 16,
                   right: MediaQuery.of(context).size.width / 16,
-                  top: MediaQuery.of(context).size.height / 36),
+                  top: MediaQuery.of(context).size.height / 32),
               children: [
             Row(children: [
               const Placeholder(color: Colors.brown),

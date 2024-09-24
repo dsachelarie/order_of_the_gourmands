@@ -71,6 +71,15 @@ class LargeTopBarWidget extends ConsumerWidget {
                       onPressed: () async {
                         await FirebaseAuth.instance.signOut();
                       }))
-        ]);
+        ],
+        bottom: const PreferredSize(
+            preferredSize: Size.fromHeight(25.0),
+            child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: Text("An app for discovering and creating recipes.",
+                        style:
+                            TextStyle(fontSize: 15.0, color: Colors.brown))))));
   }
 }

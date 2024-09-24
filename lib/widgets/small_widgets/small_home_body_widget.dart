@@ -22,10 +22,12 @@ class SmallHomeBodyWidget extends HomeBodyWidget {
         : Recipe.empty();
 
     return Column(children: [
+      const Text("Order of the Gourmands",
+          style: TextStyle(fontSize: 30.0, color: Colors.brown)),
       const Padding(
           padding: EdgeInsets.only(bottom: 10.0),
-          child: Text("Order of the Gourmands",
-              style: TextStyle(fontSize: 30.0, color: Colors.brown))),
+          child: Text("An app for discovering and creating recipes.",
+              style: TextStyle(fontSize: 15.0, color: Colors.brown))),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Column(children: [
           const Row(children: [
@@ -46,7 +48,7 @@ class SmallHomeBodyWidget extends HomeBodyWidget {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width / 8,
                       right: MediaQuery.of(context).size.width / 8,
-                      top: MediaQuery.of(context).size.height / 16),
+                      top: MediaQuery.of(context).size.height / 32),
                   children: [
                   Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
@@ -56,8 +58,7 @@ class SmallHomeBodyWidget extends HomeBodyWidget {
                               subtitle: Text(
                                   RecipeService.getTruncatedRecipeSteps(
                                       randomRecipe.steps, 300)),
-                              trailing: ReadMoreButton(
-                                  recipes.indexOf(randomRecipe))))),
+                              trailing: ReadMoreButton(randomRecipe.id)))),
                   const Center(
                       child: Text("Categories with most recipes:",
                           style:

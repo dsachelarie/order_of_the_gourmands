@@ -18,7 +18,7 @@ final recipeCategoryProvider =
     StateNotifierProvider<CategoriesRecipesNotifier, List<CategoryRecipe>>(
         (_) => CategoriesRecipesNotifier());
 
-final activeRecipeIndexProvider = StateProvider<int>((_) => 0);
+final activeRecipeIdProvider = StateProvider<String>((_) => "");
 
 final recipeFilterProvider = StateProvider<Map<String, dynamic>>((_) => {});
 

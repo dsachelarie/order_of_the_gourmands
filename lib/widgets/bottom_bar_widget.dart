@@ -32,8 +32,9 @@ class BottomBarWidget extends ConsumerWidget {
                 onPressed: recipes.isEmpty
                     ? null
                     : () {
-                        ref.watch(activeRecipeIndexProvider.notifier).update(
-                            (state) => Random().nextInt(recipes.length));
+                        ref.watch(activeRecipeIdProvider.notifier).update(
+                            (state) =>
+                                recipes[Random().nextInt(recipes.length)].id);
                         Navigator.pushNamed(context, '/recipe/');
                       })),
         Padding(

@@ -8,8 +8,7 @@ class TopBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  const TopBarWidget({super.key})
-      : preferredSize = const Size.fromHeight(kToolbarHeight);
+  const TopBarWidget({super.key}) : preferredSize = const Size.fromHeight(75.0);
 
   @override
   Widget build(BuildContext context) {

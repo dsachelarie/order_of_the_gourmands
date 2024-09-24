@@ -52,8 +52,7 @@ class MediumHomeBodyWidget extends HomeBodyWidget {
                             subtitle: Text(
                                 RecipeService.getTruncatedRecipeSteps(
                                     randomRecipe.steps, 300)),
-                            trailing:
-                                ReadMoreButton(recipes.indexOf(randomRecipe)))))
+                            trailing: ReadMoreButton(randomRecipe.id))))
                 : Container(),
           ])),
       recipes.isNotEmpty
