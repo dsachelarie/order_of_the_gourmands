@@ -6,8 +6,11 @@ abstract class RecipeBodyWidget extends ConsumerWidget {
 
   List<Widget> buildIngredientsWidgets(Map<String, String> ingredients) {
     List<Widget> ingredientsWidgets = [];
+    List<String> keys = ingredients.keys.toList();
 
-    for (String ingredient in ingredients.keys) {
+    keys.sort();
+
+    for (String ingredient in keys) {
       if (ingredients[ingredient]!.isEmpty) {
         ingredientsWidgets.add(Center(child: Text(ingredient)));
       } else {

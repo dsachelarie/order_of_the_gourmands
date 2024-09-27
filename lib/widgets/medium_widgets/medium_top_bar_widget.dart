@@ -93,14 +93,17 @@ class MediumTopBarWidget extends ConsumerWidget {
                 fontSize: ref.watch(searchActivationProvider) ? 20.0 : 30.0,
                 color: Colors.brown)),
         actions: actions,
-        bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(20.0),
-            child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text("An app for discovering and creating recipes.",
-                        style:
-                            TextStyle(fontSize: 15.0, color: Colors.brown))))));
+        bottom: ModalRoute.of(context)!.settings.name != "/"
+            ? null
+            : const PreferredSize(
+                preferredSize: Size.fromHeight(20.0),
+                child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                            "An app for discovering and creating recipes.",
+                            style: TextStyle(
+                                fontSize: 15.0, color: Colors.brown))))));
   }
 }

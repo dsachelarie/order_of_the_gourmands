@@ -25,7 +25,7 @@ class SmallHomeBodyWidget extends HomeBodyWidget {
       const Text("Order of the Gourmands",
           style: TextStyle(fontSize: 30.0, color: Colors.brown)),
       const Padding(
-          padding: EdgeInsets.only(bottom: 10.0),
+          padding: EdgeInsets.only(bottom: 20.0),
           child: Text("An app for discovering and creating recipes.",
               style: TextStyle(fontSize: 15.0, color: Colors.brown))),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -50,6 +50,10 @@ class SmallHomeBodyWidget extends HomeBodyWidget {
                       right: MediaQuery.of(context).size.width / 8,
                       top: MediaQuery.of(context).size.height / 32),
                   children: [
+                  const Center(
+                      child: Text("Featured recipe",
+                          style:
+                              TextStyle(fontSize: 20.0, color: Colors.brown))),
                   Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Card(
@@ -60,7 +64,7 @@ class SmallHomeBodyWidget extends HomeBodyWidget {
                                       randomRecipe.steps, 300)),
                               trailing: ReadMoreButton(randomRecipe.id)))),
                   const Center(
-                      child: Text("Categories with most recipes:",
+                      child: Text("Categories with most recipes",
                           style:
                               TextStyle(fontSize: 20.0, color: Colors.brown))),
                   Column(children: buildCategoriesWidgets(ref)),

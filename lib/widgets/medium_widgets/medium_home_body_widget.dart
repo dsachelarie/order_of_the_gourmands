@@ -43,16 +43,19 @@ class MediumHomeBodyWidget extends HomeBodyWidget {
                       child: Text("Please log in to use these features"))
                   : const Text("")
             ])),
+            const Center(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Text("Featured recipe",
+                        style:
+                            TextStyle(fontSize: 20.0, color: Colors.brown)))),
             recipes.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Card(
-                        child: ListTile(
-                            title: Text(randomRecipe.name),
-                            subtitle: Text(
-                                RecipeService.getTruncatedRecipeSteps(
-                                    randomRecipe.steps, 300)),
-                            trailing: ReadMoreButton(randomRecipe.id))))
+                ? Card(
+                    child: ListTile(
+                        title: Text(randomRecipe.name),
+                        subtitle: Text(RecipeService.getTruncatedRecipeSteps(
+                            randomRecipe.steps, 300)),
+                        trailing: ReadMoreButton(randomRecipe.id)))
                 : Container(),
           ])),
       recipes.isNotEmpty
@@ -64,7 +67,7 @@ class MediumHomeBodyWidget extends HomeBodyWidget {
                       top: MediaQuery.of(context).size.height / 32),
                   children: [
                   const Center(
-                      child: Text("Categories with most recipes:",
+                      child: Text("Categories with most recipes",
                           style:
                               TextStyle(fontSize: 20.0, color: Colors.brown))),
                   Column(children: buildCategoriesWidgets(ref)),

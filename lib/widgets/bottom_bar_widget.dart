@@ -23,7 +23,11 @@ class BottomBarWidget extends ConsumerWidget {
             child: ElevatedButton.icon(
                 icon: const Icon(Icons.home_outlined),
                 label: const Text("Home"),
-                onPressed: () => Navigator.pushNamed(context, '/'))),
+                onPressed: () {
+                  while (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                })),
         Padding(
             padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
             child: ElevatedButton.icon(

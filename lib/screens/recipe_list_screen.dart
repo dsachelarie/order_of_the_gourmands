@@ -104,6 +104,7 @@ class _RecipeListScreenState extends ConsumerState<RecipeListScreen> {
                       .first
                       .id);
 
+              Navigator.pop(context);
               Navigator.pushNamed(context, '/recipe/');
             },
             child: Row(children: [
