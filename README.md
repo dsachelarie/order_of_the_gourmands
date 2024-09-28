@@ -21,3 +21,10 @@
 - cloud_firestore: ^4.5.1
 - firebase_auth: ^4.4.1
 - infinite_scroll_pagination: ^4.0.0
+
+**structure of the database:**
+The Firestore database is structured as follows. There are 3 collections: *categories*, *recipes*, and *categories_recipes*. *categories* have only one field, *name* of type *string*. *recipes* have 4 or 5 fields: *creator_id* of type *string*, *ingredients* of type *map*, *name* of type *string*, *steps* of type *array*, and optionally *favorite_of* of type *array*. *categories_recipes* have two fields: *category_id* of type *string* and *recipe_id* of type *string*. This last collection was introduced to handle the many-to-many relationship between *categories* and *recipes*. 
+
+**link to GitHub repository:**
+
+https://github.com/dsachelarie/order_of_the_gourmands
