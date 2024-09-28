@@ -30,6 +30,9 @@ class LargeHomeBodyWidget extends HomeBodyWidget {
                   right: MediaQuery.of(context).size.width / 32,
                   top: MediaQuery.of(context).size.height / 32),
               children: [
+                const Center(
+                    child: Text("Featured recipe",
+                        style: TextStyle(fontSize: 20.0, color: Colors.brown))),
                 recipes.isNotEmpty
                     ? Card(
                         child: ListTile(

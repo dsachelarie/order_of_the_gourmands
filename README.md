@@ -12,7 +12,7 @@
 **3 key learning moments from working on the project:**
 - I learned how to handle unbounded height or width errors that occur in complex page structures which include *ListViews* or *GridViews*;
 - I learned how to structure my code logically across multiple files and folders, ensuring that it remains easy to understand as it grows;
-- 
+- I learned how to use *StateNotifierProvider* for more complex state modifications, such as updating specific objects within a state. 
 
 **list of dependencies and their versions (from pubspec.yaml):**
 - cupertino_icons: ^1.0.2

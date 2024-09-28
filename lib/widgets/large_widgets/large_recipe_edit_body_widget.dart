@@ -134,7 +134,7 @@ class LargeRecipeEditBodyWidget extends RecipeEditBodyWidget {
                     recipeInfo)),
             ref.watch(formValidationProvider)
                 ? const Text("")
-                : const Text("Fields cannot be left empty")
+                : const Center(child: Text("Fields cannot be left empty"))
           ]))
     ]);
   }
