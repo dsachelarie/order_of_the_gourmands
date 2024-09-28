@@ -47,7 +47,7 @@ class LargeRecipeEditBodyWidget extends RecipeEditBodyWidget {
             Row(children: [
               Expanded(
                   child: EditRecipeRemoveButton(
-                      "Remove recipe",
+                      "Remove ingredient",
                       "ingredients",
                       recipeNameController,
                       ingredientsControllers,
@@ -56,7 +56,7 @@ class LargeRecipeEditBodyWidget extends RecipeEditBodyWidget {
                       recipeInfo)),
               Expanded(
                   child: EditRecipeAddButton(
-                      "Add recipe",
+                      "Add ingredient",
                       "ingredients",
                       recipeNameController,
                       ingredientsControllers,

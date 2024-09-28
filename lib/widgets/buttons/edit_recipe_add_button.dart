@@ -24,46 +24,49 @@ class EditRecipeAddButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30.0),
-              bottomRight: Radius.circular(30.0),
+    return Padding(
+        padding: const EdgeInsets.only(right: 5.0),
+        child: ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30.0),
+                  bottomRight: Radius.circular(30.0),
+                ),
+              ),
             ),
-          ),
-        ),
-        icon: const Icon(Icons.add_outlined),
-        label: Text(text),
-        onPressed: () {
-          switch (addTo) {
-            case "ingredients":
-              ingredientsControllers.add(IngredientTuple(
-                  TextEditingController(), TextEditingController()));
-              break;
-            case "steps":
-              stepsControllers.add(TextEditingController());
-              break;
-            case "new_categories":
-              newCategoriesControllers.add(TextEditingController());
-              break;
-          }
+            icon: const Icon(Icons.add_outlined),
+            label: Text(text),
+            onPressed: () {
+              switch (addTo) {
+                case "ingredients":
+                  ingredientsControllers.add(IngredientTuple(
+                      TextEditingController(), TextEditingController()));
+                  break;
+                case "steps":
+                  stepsControllers.add(TextEditingController());
+                  break;
+                case "new_categories":
+                  newCategoriesControllers.add(TextEditingController());
+                  break;
+              }
 
-          ref.watch(recipeEditProvider.notifier).update((state) => state = {
-                "name": recipeNameController.text,
-                "ingredients": ingredientsControllers
-                    .map((controllerTuple) => IngredientTuple(
-                        controllerTuple.name.text, controllerTuple.value.text))
-                    .toList(),
-                "steps": stepsControllers
-                    .map((controller) => controller.text)
-                    .toList(),
-                "id": recipeInfo["id"],
-                "categories": recipeInfo["categories"],
-                "additional_categories": newCategoriesControllers
-                    .map((controller) => controller.text)
-                    .toList()
-              });
-        });
+              ref.watch(recipeEditProvider.notifier).update((state) => state = {
+                    "name": recipeNameController.text,
+                    "ingredients": ingredientsControllers
+                        .map((controllerTuple) => IngredientTuple(
+                            controllerTuple.name.text,
+                            controllerTuple.value.text))
+                        .toList(),
+                    "steps": stepsControllers
+                        .map((controller) => controller.text)
+                        .toList(),
+                    "id": recipeInfo["id"],
+                    "categories": recipeInfo["categories"],
+                    "additional_categories": newCategoriesControllers
+                        .map((controller) => controller.text)
+                        .toList()
+                  });
+            }));
   }
 }
