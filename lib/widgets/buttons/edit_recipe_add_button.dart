@@ -30,8 +30,8 @@ class EditRecipeAddButton extends ConsumerWidget {
             style: ElevatedButton.styleFrom(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30.0),
-                  bottomRight: Radius.circular(30.0),
+                  topRight: Radius.circular(10.0),
+                  bottomRight: Radius.circular(10.0),
                 ),
               ),
             ),

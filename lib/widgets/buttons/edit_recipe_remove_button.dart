@@ -46,8 +46,8 @@ class EditRecipeRemoveButton extends ConsumerWidget {
             style: ElevatedButton.styleFrom(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  bottomLeft: Radius.circular(30.0),
+                  topLeft: Radius.circular(10.0),
+                  bottomLeft: Radius.circular(10.0),
                 ),
               ),
             ),

@@ -36,12 +36,12 @@ class LargeRecipeEditBodyWidget extends RecipeEditBodyWidget {
                   right: MediaQuery.of(context).size.width / 4 - 200.0,
                   top: 50.0),
               children: [
-            const Text("Please fill in the recipe name:",
+            const Text("Recipe name",
                 style: TextStyle(fontSize: 20.0, color: Colors.brown)),
             RecipeEditTextField(recipeNameController),
             const Padding(
                 padding: EdgeInsets.only(top: 20.0),
-                child: Text("the ingredients' names and quantities:",
+                child: Text("Ingredients",
                     style: TextStyle(fontSize: 20.0, color: Colors.brown))),
             ...ingredientsWidgets,
             Row(children: [
@@ -66,7 +66,7 @@ class LargeRecipeEditBodyWidget extends RecipeEditBodyWidget {
             ]),
             const Padding(
                 padding: EdgeInsets.only(top: 20.0),
-                child: Text("and the cooking steps:",
+                child: Text("Cooking steps",
                     style: TextStyle(fontSize: 20.0, color: Colors.brown))),
             ...stepsWidgets,
             Row(children: [
@@ -97,7 +97,7 @@ class LargeRecipeEditBodyWidget extends RecipeEditBodyWidget {
                   right: MediaQuery.of(context).size.width / 4 - 200.0,
                   top: 50.0),
               children: [
-            const Text("then choose a few relevant categories:",
+            const Text("Categories",
                 style: TextStyle(fontSize: 20.0, color: Colors.brown)),
             ...categoriesWidgets,
             Padding(
